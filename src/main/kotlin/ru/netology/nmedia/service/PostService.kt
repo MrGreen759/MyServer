@@ -60,4 +60,12 @@ open class PostService(private val repository: PostRepository) {
             likedByMe = false
         }
         .toDto()
+
+    fun shareById(id: Long): Post = repository
+        .findById(id)
+        .orElseThrow(::NotFoundException)
+        .apply {
+            shares += 1
+        }
+        .toDto()
 }
